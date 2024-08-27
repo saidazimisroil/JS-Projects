@@ -1,0 +1,22 @@
+<%- include('partials/header'); -%>
+
+<ul class="products" id="productList">
+    <% products.forEach(product => { %>
+    <li class="product">
+        <img src="<%= product.image %>" alt="<%= product.title %>" />
+        <h4><%= product.title %></h4>
+        <p><%= product.price %>$</p>
+    </li>
+
+    <script>
+        imageUrl = "<%= product.image %>";
+        fetch("/products")
+            .then((response) => {
+                return response.blob();
+            })
+            // .then((response) => response.json())
+            .then((blob) => {})
+            .catch((error) => console.error("Error fetching data:", error));
+    </script>
+    <% }); %>
+</ul>

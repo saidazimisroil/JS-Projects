@@ -1,0 +1,89 @@
+<div class="w-75 mx-auto">
+  <p class="fs-1">Edit product - {{product.title}}</p>
+  <p class="fs-4">Created at: {{product.createdAt}}</p>
+  <p class="fs-4">Updated at: {{product.updatedAt}}</p>
+  {{#if editError}}
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+      <strong>Error! </strong>{{editError}}
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+  {{/if}}
+  <form action="/edit-product" method="post">
+    <div class="form-floating mb-3">
+      <input
+        value="{{product.title}}"
+        type="text"
+        class="form-control"
+        id="floatingInput"
+        placeholder="title"
+        name="title"
+      />
+      <label for="floatingInput">Title</label>
+    </div>
+    <div class="form-floating mb-3">
+      <textarea
+        class="form-control"
+        placeholder="Description"
+        id="floatingTextarea2"
+        name="description"
+        style="height: 100px"
+      >{{product.description}}</textarea>
+      <label for="floatingTextarea2">Description</label>
+    </div>
+    <div class="input-group mb-3">
+      <label for="category" class="text fs-5 mr-2 mt-1">Category</label>
+      <select
+        id="category"
+        class="form-select"
+        aria-label="Default select example"
+        style="margin-left: 10px;"
+        name="category"
+      >
+        {{#ifequal product.category "food"}}
+          <option value="food">Food</option>
+          <option value="drinks">Drinks</option>
+          <option value="other">Other</option>
+        {{/ifequal}}
+        {{#ifequal product.category "drinks"}}
+          <option value="drinks">Drinks</option>
+          <option value="food">Food</option>
+          <option value="other">Other</option>
+        {{/ifequal}}
+        {{#ifequal product.category "other"}}
+          <option value="other">Other</option>
+          <option value="food">Food</option>
+          <option value="drinks">Drinks</option>
+        {{/ifequal}}
+
+      </select>
+    </div>
+    <div class="input-group mb-3">
+      <div class="form-floating">
+        <input
+          type="number"
+          class="form-control"
+          name="amount"
+          id="floatingInputGroup1"
+          placeholder="Amount"
+          value="{{product.amount}}"
+        />
+        <label for="floatingInputGroup1">Amount</label>
+      </div>
+    </div>
+    <div class="input-group mb-3">
+      <span class="input-group-text">$</span>
+      <div class="form-floating">
+        <input
+          type="number"
+          class="form-control"
+          name="price"
+          id="floatingInputGroup1"
+          placeholder="Price"
+          value="{{product.price}}"
+        />
+        <label for="floatingInputGroup1">Price</label>
+      </div>
+    </div>
+    <button type="submit" class="btn btn-primary mt-3">Edit</button>
+  </form>
+</div>

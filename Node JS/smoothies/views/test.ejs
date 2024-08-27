@@ -1,0 +1,46 @@
+<!-- test.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Image Viewer</title>
+    </head>
+    <body>
+        <h1>Image Viewer</h1>
+
+        <% products.forEach((product) => { %>
+        <div>
+            <h2><%= product.name %></h2>
+            <img
+                id="<%= product.name %>Image"
+                src="<%= product.imagePath %>"
+                alt="<%= product.name %> Image"
+            />
+
+            <script>
+                const imageUrl<%= product.name %> = "<%= product.imagePath %>";
+                console.log("Image Source:", imageUrl<%= product.name %>);
+
+                // Fetch the image from the server
+                fetch(imageUrl<%= product.name %>)
+                    .then((response) => {
+                        if (!response.ok) {
+                            throw new Error(
+                                `Network response was not ok: ${response.status}`
+                            );
+                        }
+                        return response.blob();
+                    })
+                    .then((blob) => {
+                        const imageUrl<%= product.name %> = URL.createObjectURL(blob);
+                        document.getElementById("<%= product.name %>Image").src = imageUrl<%= product.name %>;
+                    })
+                    .catch((error) =>
+                        console.error("Error fetching image:", error)
+                    );
+            </script>
+        </div>
+        <% }); %>
+    </body>
+</html>
